@@ -53,10 +53,7 @@ public class NotNullList<E> implements List<E> {
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            return false;
-        }
-        return listWrapper.remove(o);
+        return o != null &&  listWrapper.remove(o);
     }
 
     /**
@@ -64,7 +61,7 @@ public class NotNullList<E> implements List<E> {
      */
     @Override
     public boolean containsAll(Collection<?> c) {
-        if (c == null || c.size() == 0) {
+        if (c == null || c.isEmpty()) {
             return false;
         }
         for (Object element : c) {
@@ -77,7 +74,7 @@ public class NotNullList<E> implements List<E> {
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        if (c == null || c.size() == 0) {
+        if (c == null || c.isEmpty()) {
             return false;
         }
         boolean allAdded = true;
@@ -91,7 +88,7 @@ public class NotNullList<E> implements List<E> {
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        return (index <= 0 || c == null || listWrapper.size() < index) && addAll(index, c);
+        return (index <= 0 || c == null || listWrapper.size() < index || !c.isEmpty()) && addAll(index, c);
     }
 
     /**
@@ -99,7 +96,7 @@ public class NotNullList<E> implements List<E> {
      */
     @Override
     public boolean removeAll(Collection<?> c) {
-        if (c == null) {
+        if (c == null || c.isEmpty()) {
             return false;
         }
         boolean removedAll = true;
