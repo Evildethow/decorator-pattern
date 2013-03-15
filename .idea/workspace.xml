@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52e00530-0477-4a5e-a128-f5c2f6206e3a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/decorator-pattern.iml" />
-    </list>
+    <list default="true" id="52e00530-0477-4a5e-a128-f5c2f6206e3a" name="Default" comment="" />
     <ignored path="decorator-pattern.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/NotNullList.java" changelist="52e00530-0477-4a5e-a128-f5c2f6206e3a" time="1363352725413" ignored="false" />
