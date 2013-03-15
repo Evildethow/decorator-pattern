@@ -59,36 +59,56 @@ public class NotNullList<E> implements List<E> {
         return listWrapper.remove(o);
     }
 
+    /**
+     * Probably ignorance on my behalf but why doesn't ? extend E, at least for consistency (?)
+     */
     @Override
     public boolean containsAll(Collection<?> c) {
-        if (c == null) {
+        if (c == null || c.size() == 0) {
             return false;
+        }
+        for (Object element : c) {
+           if (element == null) {
+               return false;
+           }
         }
         return listWrapper.containsAll(c);
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        if (c == null) {
+        if (c == null || c.size() == 0) {
             return false;
         }
-        return listWrapper.addAll(c);
+        boolean allAdded = true;
+        for (E element : c) {
+            if (element == null) {
+                allAdded = false;
+            }
+        }
+        return allAdded && listWrapper.addAll(c);
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        if (index <= 0 || c == null || listWrapper.size() < index) {
-            return false;
-        }
-        return listWrapper.addAll(index, c);
+        return (index <= 0 || c == null || listWrapper.size() < index) && addAll(index, c);
     }
 
+    /**
+     * Probably ignorance on my behalf but why doesn't ? extend E, at least for consistency (?)
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c == null) {
             return false;
         }
-        return listWrapper.removeAll(c);
+        boolean removedAll = true;
+        for (Object element : c) {
+            if (element == null) {
+                removedAll = false;
+            }
+        }
+        return removedAll && listWrapper.removeAll(c);
     }
 
     @Override
@@ -108,15 +128,12 @@ public class NotNullList<E> implements List<E> {
 
     @Override
     public E set(int index, E element) {
-        if (element == null || index > listWrapper.size()) {
-            return element;
-        }
-        return listWrapper.set(index, element);
+        return (element == null || index >= listWrapper.size()) ? element : listWrapper.set(index, element);
     }
 
     @Override
     public void add(int index, E element) {
-        if (element == null || index > listWrapper.size()) {
+        if (element == null || index >= listWrapper.size()) {
             return;
         }
         listWrapper.add(index, element);
